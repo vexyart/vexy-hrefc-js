@@ -22,6 +22,7 @@
 .hrefc-cta{display:block;margin-top:.5em;font-size:.85em;color:var(--hrefc-cta,inherit);}
 .hrefc-thumb{display:none;height:auto;border-radius:8px;background:var(--hrefc-thumb-bg);}
 .hrefc-thumb-wide{display:block;width:100%;margin:0 0 10px;}
+.hrefc-thumb-half{display:block;width:50%;float:right;margin:.1em 0 .55em .85em;}
 .hrefc-thumb-float{display:block;width:33%;float:right;margin:.1em 0 .55em .85em;}
 .hrefc-thumb-frame{position:relative;width:100%;margin:0 0 10px;border-radius:8px;overflow:hidden;background:var(--hrefc-thumb-bg);}
 .hrefc-thumb-frame iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;}

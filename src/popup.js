@@ -23,6 +23,7 @@ export function createPopup(config) {
       cta: prefix + '-cta',
       thumb: prefix + '-thumb',
       thumbWide: prefix + '-thumb-wide',
+      thumbHalf: prefix + '-thumb-half',
       thumbFloat: prefix + '-thumb-float',
       frame: prefix + '-thumb-frame',
     },
@@ -144,12 +145,17 @@ export function createPopup(config) {
     if (src) {
       const img = doc.createElement('img');
       img.className = cls.thumb;
-      img.loading = 'lazy';
+      // No loading="lazy": the image starts display:none until its ratio is
+      // known, and browsers never load a display:none lazy image.
       img.alt = '';
       img.addEventListener('load', () => {
-        // 3:2 or wider → full width above the title; narrower → 33% floated right.
+        // Lay the image out by shape, measured once it loads:
+        //   5:4 or wider (>=1.25) → full width above the title
+        //   2:3 or narrower (<=0.667) → 33% floated right
+        //   in between → 50% floated right
         const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 1.6;
-        img.classList.add(ratio >= 1.5 ? cls.thumbWide : cls.thumbFloat);
+        const cl = ratio >= 1.25 ? cls.thumbWide : ratio <= 2 / 3 ? cls.thumbFloat : cls.thumbHalf;
+        img.classList.add(cl);
         reposition();
       });
       img.addEventListener('error', () => {

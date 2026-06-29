@@ -57,10 +57,11 @@ hrefc({
 
 The card lays the image out by its aspect ratio, measured once it loads:
 
-- **3:2 or wider** (screenshots, social cards) → full width, above the title (class `.hrefc-thumb-wide`).
-- **Narrower than 3:2** (portraits, posters) → 33% width, floated right, with the text wrapping beside it (class `.hrefc-thumb-float`).
+- **5:4 or wider** (screenshots, social cards) → full width, above the title (class `.hrefc-thumb-wide`).
+- **Between 5:4 and 2:3** → 50% width, floated right (class `.hrefc-thumb-half`).
+- **2:3 or narrower** (portraits, posters) → 33% width, floated right (class `.hrefc-thumb-float`).
 
-Restyle either with those classes — e.g. change the float width or drop it to full width.
+The text wraps beside floated images. Restyle any tier with those classes — change a float width, or drop it to full width.
 
 ## Custom providers
 
