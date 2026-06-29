@@ -1,6 +1,6 @@
 {
   "name": "vexy-hrefc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Hover a link, see what's behind it. A tiny, dependency-free link-preview popup library (ESM + global).",
   "type": "module",
   "main": "./dist/hrefc.esm.js",
