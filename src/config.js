@@ -16,6 +16,7 @@ export const defaults = {
     description: true,
     thumbnail: false,
     favicon: false,
+    cta: null, // call-to-action footer text/HTML, e.g. "Click to read more"; off by default
     descriptionMaxLength: 350,
     stripTitleSuffix: false, // trim "Page | Site" → "Page"
     titleSeparators: ['|', '–', '—', '·', '»', '::'],
@@ -40,7 +41,8 @@ export const defaults = {
   popup: {
     maxWidth: 360,
     offset: 12, // gap between link and card, px
-    placement: 'auto', // 'auto' | 'top' | 'bottom'
+    placement: 'auto', // 'auto' (prefers above the link) | 'top' | 'bottom'
+    arrow: true, // show the speech-balloon connector
     classPrefix: 'hrefc',
     appendTo: null, // defaults to document.body at runtime
     inheritFont: true,

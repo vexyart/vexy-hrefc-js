@@ -25,6 +25,8 @@ export interface ContentConfig {
   description?: boolean;
   thumbnail?: boolean;
   favicon?: boolean;
+  /** Call-to-action footer text or HTML (e.g. "Click to read more"). Off by default. */
+  cta?: string | null;
   descriptionMaxLength?: number;
   stripTitleSuffix?: boolean;
   titleSeparators?: string[];
@@ -48,6 +50,8 @@ export interface PopupConfig {
   maxWidth?: number;
   offset?: number;
   placement?: 'auto' | 'top' | 'bottom';
+  /** Show the speech-balloon connector pointing at the link. On by default. */
+  arrow?: boolean;
   classPrefix?: string;
   appendTo?: HTMLElement | (() => HTMLElement) | null;
   inheritFont?: boolean;

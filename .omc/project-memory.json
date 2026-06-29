@@ -9,7 +9,7 @@
     "runtime": null
   },
   "build": {
-    "buildCommand": "cd /Users/adam/Developer/vcs3/github.vexyart/vexy-hrefc-js\necho \"=== BUILD ===\"; npm run build 2>&1 | grep -E 'built|KB'\necho \"=== dist contents ===\"; ls -1 dist/\necho \"=== types present in dist? ===\"; test -f dist/hrefc.d.ts && echo \"yes: dist/hrefc.d.ts ($(wc -l < dist/hrefc.d.ts) lines)\" || echo \"MISSING\"\necho \"=== package.json types/files ===\"; node -e \"const p=require('./package.json'); console.log('types:',p.types); console.log('exports.types:',p.exports['.'].types); console.log('files:',p.files.join(', '))\"\necho \"=== npm pack dry-run (what actually ships) ===\"; npm pack --dry-run 2>&1 | grep -E 'hrefc\\.d\\.ts|npm notice (package size|Tarball)|\\.esm\\.|\\.global\\.|\\.css' | head -20\necho \"=== TESTS ===\"; node --test 2>&1 | grep -E 'tests [0-9]+|pass [0-9]+|fail [0-9]+' | tail -3\necho \"=== no stray root hrefc.d.ts ===\"; test -f hrefc.d.ts && echo \"STILL IN ROOT\" || echo \"root is clean\"",
+    "buildCommand": "cd /Users/adam/Developer/vcs3/github.vexyart/vexy-hrefc-js\necho \"=== BUILD ===\"; npm run build 2>&1 | grep -E 'built|KB'\necho \"=== TEST ===\"; node --test 2>&1 | grep -E 'tests [0-9]+|pass [0-9]+|fail [0-9]+' | tail -3\necho \"=== HEADLESS DOM VERIFY ===\"\ncat > scratch-verify.mjs << 'EOF'\nimport { parseHTML, DOMParser } from 'linkedom';\nconst { window, document } = parseHTML('<!doctype html><html><head><style id=\"pagecss\"></style></head><body><a class=\"hrefc\" href=\"https://example.com/page\">link</a></body></html>');\nObject.assign(globalThis, { window, document, Element: window.Element, Node: window.Node, HTMLElement: window.HTMLElement, DOMParser });\nglobalThis.location = { href: 'https://host.test/', origin: 'https://host.test' };\nwindow.location = globalThis.location;\nglobalThis.requestAnimationFrame = (cb) => setTimeout(cb, 0);\nglobalThis.fetch = async () => ({ ok: true, status: 200, url: 'https://target.test/', text: async () => '<html><head><meta property=\"og:title\" content=\"Image Overview | Vexy Lines Help\"><meta property=\"og:description\" content=\"A source image is the bitmap a Vexy Lines document is built on.\"></head><body></body></html>' });\nwindow.Element.prototype.getBoundingClientRect = () => ({ top: 300, left: 80, bottom: 320, right: 180, width: 100, height: 20 });\nObject.defineProperty(document.documentElement, 'clientWidth', { value: 1024, configurable: true });\nObject.defineProperty(document.documentElement, 'clientHeight', { value: 768, configurable: true });\n\nconst { hrefc } = await import('./src/index.js');\nconst inst = hrefc({\n  trigger: 'manual',\n  content: { stripTitleSuffix: true, titleSeparators: ['|'], cta: 'Click to read more' },\n  fetch: { proxies: [async () => '<html><head><meta property=\"og:title\" content=\"Image Overview | Vexy Lines Help\"><meta property=\"og:description\" content=\"A source image is the bitmap.\"></head><body></body></html>'] },\n});\nawait inst.show(document.querySelector('a.hrefc'));\nawait new Promise((r) => setTimeout(r, 40));\n\nconst popup = document.querySelector('.hrefc-popup');\nconst card = document.querySelector('.hrefc-card');\nconst arrow = document.querySelector('.hrefc-arrow');\nconst title = document.querySelector('.hrefc-title');\nconst cta = document.querySelector('.hrefc-cta');\nconst styleEl = document.querySelector('style[data-hrefc-styles]');\nconsole.log('popup shown:        ', popup?.getAttribute('data-show'));\nconsole.log('data-placement:     ', popup?.getAttribute('data-placement'), '(want top — above the link)');\nconsole.log('card present:       ', !!card);\nconsole.log('arrow present:      ', !!arrow, '| arrow.left set:', !!arrow?.style.left, arrow?.style.left);\nconsole.log('title (trimmed):    ', JSON.stringify(title?.textContent));\nconsole.log('cta text:           ', JSON.stringify(cta?.textContent));\nconsole.log('styles prepended:   ', document.head.firstChild === styleEl, '(want true — page CSS wins)');\nEOF\nnode scratch-verify.mjs 2>&1 | tail -12\nrm -f scratch-verify.mjs",
     "testCommand": "cat > /Users/adam/Developer/vcs3/github.vexyart/vexy-hrefc-js/TODO.md << 'TODOEOF'\n# TODO — vexy-hrefc-js\n\nFlat, actionable mirror of `PLAN.md`. Check items as they land.\n\n## P1 — Foundation\n- [x] Add `package.json` (name `vexy-hrefc`, exports/unpkg/jsdelivr/types, scripts, devDeps: esbuild, linkedom)\n- [x] Add `.gitignore` entry for `dist/`\n- [x] Create `src/` directory structure\n- [x] Write `esbuild` build config (`scripts/build.mjs`) → ESM, global, min, css\n- [x] Write `./build.sh` (install + `npm run build`, report sizes)\n- [x] Confirm bundle builds\n\n## P2 — Core library\n- [x] `src/util.js` — `escapeHTML`, `absoluteUrl`, `originOf`, `isSameOrigin`, `withTimeout`\n- [x] `src/config.js` — defaults + deep-merge + normalization\n- [x] `src/extract.js` — title/description chains, body-text fallback, relative-URL resolution\n- [x] `src/proxies.js` — `jina` (X-Engine/X-Return-Format), `allorigins`, `corsproxy`\n- [x] `src/fetcher.js` — native + proxy chain, timeout, cache, in-flight dedupe\n- [x] `src/styles.js` — default CSS, `--hrefc-*` vars, dark/light, font inheritance\n- [x] `src/popup.js` — DOM build, positioning (flip/clamp), hover intent, show-only-when-ready, click-through\n- [x] `src/index.js` — `hrefc()`, `Hrefc` class, `refresh`/`add`/`show`/`hide`/`destroy`, auto-init, exports\n- [x] Manual QA: same-origin/proxy preview shows (headless DOM smoke test green)\n- [x] Manual QA: cross-origin proxy path, silent on failure (smoke test green)\n\n## P3 — Thumbnails & favicon\n- [x] `src/thumbnail.js` — provider chain: ogimage → mshots → microlink → iframe → none\n- [x] Click-protected iframe mode (desktop viewport, scaled down, overlay)\n- [x] Favicon resolution (best size → /favicon.ico), opt-in, before title\n- [x] Wire content toggles: title (on), description (on), thumbnail (off), favicon (off)\n\n## P4 — Tests & verify\n- [x] `test/extract.test.js` — og/twitter/title fallbacks, description chain, body-text cutoff, favicon\n- [x] `test/config.test.js` — deep merge, class/selector overrides, no mutation\n- [x] `test/fetcher.test.js` — cache hit, in-flight dedupe, proxy fallthrough, timeout abort, empty page\n- [x] `npm test` green (19/19)\n- [x] `npm run build` green; sizes recorded (global.min 14.8 KB / 5.5 KB gz)\n\n## P5 — Docs & demos\n- [x] `docs/_config.yml` — `remote_theme: just-the-docs`, nav, copy-code button\n- [x] `docs/Gemfile` + `docs/index.md`\n- [x] Demo harness: `docs/assets/demo.css` + `docs/assets/demo.js` (copy buttons)\n- [x] `docs/demos/01-basic.html` + `docs/demos/index.html`\n- [ ] `docs/demos/02-description-favicon.html` … `06-proxies.html` (agent in progress)\n- [ ] `docs/getting-started.md`, `configuration.md`, `api-reference.md` (agent in progress)\n- [ ] `docs/styling.md`, `fetching-cors.md`, `thumbnails.md`, `recipes.md` (agent in progress)\n- [ ] Each `.md` embeds its demo via `<iframe>` + repeats copyable code\n- [x] Build vendors bundle into `docs/assets/` for GitHub Pages\n\n## P6 — Ship\n- [x] `hrefc.d.ts` — typed public API\n- [x] `./publish.sh` — guards, build, `npm publish`, tag, push\n- [ ] `README.md` — strong lead, install, one example, links to docs (agent in progress)\n- [ ] `private/WEBFLOW.md` — exact swap steps for the `/lines` page (agent in progress)\n- [ ] `CHANGELOG.md` — 0.1.0 → 1.0.0 notes (agent in progress)\n- [ ] Final verify: build + test green, demos load built script, docs structure sound\nTODOEOF\necho \"TODO.md updated: $(grep -c '\\- \\[x\\]' /Users/adam/Developer/vcs3/github.vexyart/vexy-hrefc-js/TODO.md) done, $(grep -c '\\- \\[ \\]' /Users/adam/Developer/vcs3/github.vexyart/vexy-hrefc-js/TODO.md) remaining\"",
     "lintCommand": null,
     "devCommand": null,
@@ -45,15 +45,21 @@
   },
   "hotPaths": [
     {
-      "path": "publish.sh",
-      "accessCount": 6,
-      "lastAccessed": 1782743209949,
+      "path": "private/WEBFLOW.md",
+      "accessCount": 11,
+      "lastAccessed": 1782747808671,
       "type": "file"
     },
     {
       "path": "src/config.js",
-      "accessCount": 5,
-      "lastAccessed": 1782737885138,
+      "accessCount": 7,
+      "lastAccessed": 1782748804401,
+      "type": "file"
+    },
+    {
+      "path": "publish.sh",
+      "accessCount": 6,
+      "lastAccessed": 1782743209949,
       "type": "file"
     },
     {
@@ -72,6 +78,12 @@
       "path": "docs/index.md",
       "accessCount": 4,
       "lastAccessed": 1782737885984,
+      "type": "file"
+    },
+    {
+      "path": "src/styles.js",
+      "accessCount": 4,
+      "lastAccessed": 1782748751664,
       "type": "file"
     },
     {
@@ -111,6 +123,18 @@
       "type": "file"
     },
     {
+      "path": "src/popup.js",
+      "accessCount": 3,
+      "lastAccessed": 1782748784186,
+      "type": "file"
+    },
+    {
+      "path": "src/hrefc.d.ts",
+      "accessCount": 3,
+      "lastAccessed": 1782748849079,
+      "type": "file"
+    },
+    {
       "path": "docs/demos/01-basic.html",
       "accessCount": 2,
       "lastAccessed": 1782737769145,
@@ -132,12 +156,6 @@
       "path": "docs/assets/demo.js",
       "accessCount": 2,
       "lastAccessed": 1782737784535,
-      "type": "file"
-    },
-    {
-      "path": "src/styles.js",
-      "accessCount": 2,
-      "lastAccessed": 1782737855222,
       "type": "file"
     },
     {
@@ -165,9 +183,9 @@
       "type": "file"
     },
     {
-      "path": "private/WEBFLOW.md",
+      "path": "test/config.test.js",
       "accessCount": 2,
-      "lastAccessed": 1782738277301,
+      "lastAccessed": 1782748860887,
       "type": "file"
     },
     {
@@ -204,18 +222,6 @@
       "path": "src/fetcher.js",
       "accessCount": 1,
       "lastAccessed": 1782737177602,
-      "type": "file"
-    },
-    {
-      "path": "src/popup.js",
-      "accessCount": 1,
-      "lastAccessed": 1782737236310,
-      "type": "file"
-    },
-    {
-      "path": "test/config.test.js",
-      "accessCount": 1,
-      "lastAccessed": 1782737325966,
       "type": "file"
     },
     {

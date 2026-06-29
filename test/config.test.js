@@ -8,6 +8,12 @@ test('defaults: title and description on, thumbnail and favicon off', () => {
   assert.equal(defaults.content.description, true);
   assert.equal(defaults.content.thumbnail, false);
   assert.equal(defaults.content.favicon, false);
+  assert.equal(defaults.content.cta, null); // CTA off by default
+});
+
+test('defaults: arrow on, placement auto (prefers above)', () => {
+  assert.equal(defaults.popup.arrow, true);
+  assert.equal(defaults.popup.placement, 'auto');
 });
 
 test('deep-merges nested objects, leaves siblings intact', () => {

@@ -3,8 +3,10 @@ import { injectStyles } from './styles.js';
 import { resolveThumbnail } from './thumbnail.js';
 
 /**
- * A single reusable popup element with positioning and content rendering.
+ * A single reusable popup with positioning and content rendering.
  * It shows only when content is handed to it; it never shows a loading state.
+ *
+ * DOM: .popup (positioning + fade) > [ .arrow, .card (the visible content) ].
  */
 export function createPopup(config) {
   const doc = document;
@@ -12,10 +14,13 @@ export function createPopup(config) {
   const cls = Object.assign(
     {
       popup: prefix + '-popup',
+      card: prefix + '-card',
+      arrow: prefix + '-arrow',
       head: prefix + '-head',
       favicon: prefix + '-favicon',
       title: prefix + '-title',
       desc: prefix + '-desc',
+      cta: prefix + '-cta',
       thumb: prefix + '-thumb',
       frame: prefix + '-thumb-frame',
     },
@@ -30,7 +35,10 @@ export function createPopup(config) {
     });
   }
 
+  const showArrow = config.popup.arrow !== false;
   let el = null;
+  let card = null;
+  let arrow = null;
   let currentLink = null;
   let handlers = { enter: null, leave: null };
 
@@ -46,12 +54,22 @@ export function createPopup(config) {
     el.className = cls.popup;
     el.setAttribute('role', 'tooltip');
     el.style.zIndex = String(config.popup.zIndex || 9999);
-    el.style.maxWidth = (config.popup.maxWidth || 360) + 'px';
     if (config.popup.theme && config.popup.theme !== 'auto') {
       el.setAttribute('data-theme', config.popup.theme);
     }
+
+    if (showArrow) {
+      arrow = doc.createElement('div');
+      arrow.className = cls.arrow;
+      el.appendChild(arrow);
+    }
+    card = doc.createElement('div');
+    card.className = cls.card;
+    card.style.maxWidth = (config.popup.maxWidth || 360) + 'px';
+    el.appendChild(card);
+
     if (config.popup.interactive) {
-      el.style.cursor = 'pointer';
+      card.style.cursor = 'pointer';
       el.addEventListener('pointerenter', () => handlers.enter && handlers.enter());
       el.addEventListener('pointerleave', () => handlers.leave && handlers.leave());
       el.addEventListener('click', (e) => {
@@ -106,6 +124,15 @@ export function createPopup(config) {
       frag.appendChild(d);
     }
     if (config.content.thumbnail) attachThumb(frag, data, link);
+
+    // Optional call-to-action footer (e.g. "Click to read more"). Author-supplied
+    // config, so an HTML string is allowed and set as innerHTML.
+    if (config.content.cta) {
+      const cta = doc.createElement('div');
+      cta.className = cls.cta;
+      cta.innerHTML = String(config.content.cta);
+      frag.appendChild(cta);
+    }
     return frag;
   }
 
@@ -163,12 +190,14 @@ export function createPopup(config) {
     const vw = doc.documentElement.clientWidth;
     const vh = doc.documentElement.clientHeight;
 
+    // Default: above the link. Flip below only when there's no room above.
     let placement = config.popup.placement || 'auto';
     if (placement === 'auto') {
+      const fitsAbove = r.top > pr.height + offset;
       const fitsBelow = vh - r.bottom > pr.height + offset;
-      placement = fitsBelow || r.top < pr.height + offset ? 'bottom' : 'top';
+      placement = fitsAbove ? 'top' : fitsBelow ? 'bottom' : 'top';
     }
-    let top = placement === 'bottom' ? r.bottom + offset : r.top - pr.height - offset;
+    let top = placement === 'top' ? r.top - pr.height - offset : r.bottom + offset;
     let left = r.left;
 
     if (left + pr.width > vw - margin) left = vw - margin - pr.width;
@@ -178,6 +207,15 @@ export function createPopup(config) {
 
     el.style.left = Math.round(left) + 'px';
     el.style.top = Math.round(top) + 'px';
+    el.setAttribute('data-placement', placement);
+
+    // Point the arrow at the link's horizontal centre, clamped to the card.
+    if (arrow) {
+      const linkCenter = r.left + r.width / 2;
+      let ax = linkCenter - left - 6; // 6 = half the 12px arrow
+      ax = Math.max(10, Math.min(pr.width - 22, ax));
+      arrow.style.left = Math.round(ax) + 'px';
+    }
   }
 
   function reposition() {
@@ -188,8 +226,8 @@ export function createPopup(config) {
     ensureEl();
     currentLink = link;
     if (config.popup.theme === 'auto') el.removeAttribute('data-theme');
-    el.innerHTML = '';
-    el.appendChild(buildContent(data, link));
+    card.innerHTML = '';
+    card.appendChild(buildContent(data, link));
     position(link);
     requestAnimationFrame(() => {
       position(link);
@@ -206,6 +244,8 @@ export function createPopup(config) {
   function destroy() {
     if (el && el.parentNode) el.parentNode.removeChild(el);
     el = null;
+    card = null;
+    arrow = null;
     currentLink = null;
   }
 
