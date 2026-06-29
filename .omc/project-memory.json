@@ -45,6 +45,12 @@
   },
   "hotPaths": [
     {
+      "path": "publish.sh",
+      "accessCount": 6,
+      "lastAccessed": 1782743209949,
+      "type": "file"
+    },
+    {
       "path": "src/config.js",
       "accessCount": 5,
       "lastAccessed": 1782737885138,
@@ -60,12 +66,6 @@
       "path": "package.json",
       "accessCount": 5,
       "lastAccessed": 1782739468088,
-      "type": "file"
-    },
-    {
-      "path": "publish.sh",
-      "accessCount": 5,
-      "lastAccessed": 1782742735063,
       "type": "file"
     },
     {

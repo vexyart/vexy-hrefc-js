@@ -15,5 +15,9 @@
 next-env.d.ts
 npm-debug.log*
 private/
+
+# tooling state — never part of the repo
+.omc/
+.codegraph/
 yarn-debug.log*
 yarn-error.log*

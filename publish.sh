@@ -12,6 +12,20 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Make sure we can actually publish BEFORE doing anything that bumps the version.
+# npm/pnpm never prompt for login on a failed publish (a bad token just 404s),
+# so check here and present the login ourselves when needed.
+if ! npm whoami >/dev/null 2>&1; then
+  if [ -t 0 ]; then
+    echo "→ not logged in to npm — launching 'npm login'"
+    npm login
+    npm whoami >/dev/null 2>&1 || { echo "✗ still not logged in to npm"; exit 1; }
+  else
+    echo "✗ not logged in to npm. Run 'npm login' and retry."; exit 1
+  fi
+fi
+echo "✓ npm user: $(npm whoami)"
+
 echo "→ installing dependencies"
 npm install
 
