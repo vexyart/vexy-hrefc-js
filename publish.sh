@@ -25,24 +25,29 @@ npm run build
 # (Its loguru/rich output goes to stderr; stdout is just "vX.Y.Z".)
 echo "→ versioning with gitnextver"
 VER_TAG="$(uvx gitnextver@latest | tail -n1 | tr -d '[:space:]')"
-[ -n "$VER_TAG" ] || { echo "✗ gitnextver produced no version — nothing changed to release"; exit 1; }
-VER="${VER_TAG#v}"
-echo "  version: $VER  (tag $VER_TAG)"
 
-# Record the version in package.json so the published package matches the tag,
-# then commit and push that one change.
-echo "→ writing version $VER into package.json"
-node -e '
-  const fs = require("fs"), f = "package.json";
-  const p = JSON.parse(fs.readFileSync(f, "utf8"));
-  if (p.version === process.argv[1]) process.exit(0);
-  p.version = process.argv[1];
-  fs.writeFileSync(f, JSON.stringify(p, null, 2) + "\n");
-' "$VER"
-
-if ! git diff --quiet -- package.json; then
-  git commit -qm "Set package.json version to $VER" -- package.json
-  git push --quiet origin HEAD
+if [ -n "$VER_TAG" ]; then
+  # gitnextver bumped + tagged a new version — record it in package.json and
+  # commit that one change so the published package matches the tag.
+  VER="${VER_TAG#v}"
+  echo "  new version: $VER  (tag $VER_TAG)"
+  node -e '
+    const fs = require("fs"), f = "package.json";
+    const p = JSON.parse(fs.readFileSync(f, "utf8"));
+    if (p.version === process.argv[1]) process.exit(0);
+    p.version = process.argv[1];
+    fs.writeFileSync(f, JSON.stringify(p, null, 2) + "\n");
+  ' "$VER"
+  if ! git diff --quiet -- package.json; then
+    git commit -qm "Set package.json version to $VER" -- package.json
+    git push --quiet origin HEAD
+  fi
+else
+  # Clean tree: gitnextver had nothing to bump. Publish whatever package.json
+  # already says, so a re-run after a failed publish (e.g. expired npm token)
+  # isn't blocked. npm rejects a genuine duplicate version on its own.
+  VER="$(node -p 'require("./package.json").version')"
+  echo "  nothing to version — (re)publishing current version $VER"
 fi
 
 echo "→ publishing vexy-hrefc@$VER to npm"

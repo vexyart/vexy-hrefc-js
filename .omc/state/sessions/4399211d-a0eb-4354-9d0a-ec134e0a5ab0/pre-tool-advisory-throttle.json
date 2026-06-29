@@ -1,38 +1,18 @@
 {
   "version": 1,
   "entries": {
-    "79a93d4a2f8f50b95f852280616242fee1855dc99a3c75211917f55e72e95fae": {
-      "last_emitted_at_ms": 1782740164067,
-      "message": "Use parallel execution for independent tasks. Use run_in_background for long operations (npm install, builds, tests)."
-    },
     "445ed27a3872b681d98190bae61ccb84954e1bc4e140df5370be958dee776b3a": {
-      "last_emitted_at_ms": 1782740134365,
+      "last_emitted_at_ms": 1782742734980,
       "message": "Verify changes work after editing. Test functionality before marking complete."
+    },
+    "79a93d4a2f8f50b95f852280616242fee1855dc99a3c75211917f55e72e95fae": {
+      "last_emitted_at_ms": 1782742637271,
+      "message": "Use parallel execution for independent tasks. Use run_in_background for long operations (npm install, builds, tests)."
     },
     "808cb04420bcb368ab4716038ddd950b51198d0402b6cf8e965d66ca42ebccbe": {
       "last_emitted_at_ms": 1782740001311,
       "message": "[SLOP WARNING] Detected fallback/workaround language in this tool input. Do not make potential slop: avoid ad-hoc fallback layers, workaround shims, or environment-specific patches unless explicitly justified. For architecture concerns, consult the architect for a concrete design first. If this seems environment-specific, ask the user to confirm constraints before proceeding.\n\nVerify changes work after editing. Test functionality before marking complete."
-    },
-    "466399dafa2d20f60587180bad0a07358eb7f2bce724df0ff682f038ad33f5ad": {
-      "last_emitted_at_ms": 1782738268670,
-      "message": "Read multiple files in parallel when possible for faster analysis."
-    },
-    "1419ae5b520f65f00a6a89a66c288c60d149765b71cf1c4ebb332ac08c2e049b": {
-      "last_emitted_at_ms": 1782737869181,
-      "message": "Spawning agent: oh-my-claudecode:executor (opus) | Task: Write README, WEBFLOW, CHANGELOG"
-    },
-    "0c62d5e109fea14847d04f8f6063bc503a943ff1df28841da26697232f3b68d1": {
-      "last_emitted_at_ms": 1782737837664,
-      "message": "Spawning agent: oh-my-claudecode:executor (opus) | Task: Write styling/cors/thumb/recipes docs"
-    },
-    "b35cc673b042b1fb063f923df3ffddbf644ffdc8fd46def14dde7eb7f010fbf3": {
-      "last_emitted_at_ms": 1782737791512,
-      "message": "Spawning agent: oh-my-claudecode:executor (opus) | Task: Write core docs pages"
-    },
-    "7f3a5009b444dd71d6a3edf3d2a62a52867b4d509b49c91f6d4ef0c9d4c3d03a": {
-      "last_emitted_at_ms": 1782737762618,
-      "message": "Spawning agent: oh-my-claudecode:executor (opus) | Task: Build demos 02-06"
     }
   },
-  "updated_at": "2026-06-29T13:36:04.067Z"
+  "updated_at": "2026-06-29T14:18:54.980Z"
 }
