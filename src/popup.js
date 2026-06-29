@@ -22,6 +22,8 @@ export function createPopup(config) {
       desc: prefix + '-desc',
       cta: prefix + '-cta',
       thumb: prefix + '-thumb',
+      thumbWide: prefix + '-thumb-wide',
+      thumbFloat: prefix + '-thumb-float',
       frame: prefix + '-thumb-frame',
     },
     config.classes || {},
@@ -144,14 +146,19 @@ export function createPopup(config) {
       img.className = cls.thumb;
       img.loading = 'lazy';
       img.alt = '';
-      img.addEventListener('load', () => reposition());
+      img.addEventListener('load', () => {
+        // 3:2 or wider → full width above the title; narrower → 33% floated right.
+        const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 1.6;
+        img.classList.add(ratio >= 1.5 ? cls.thumbWide : cls.thumbFloat);
+        reposition();
+      });
       img.addEventListener('error', () => {
         img.remove();
         if (config.thumbnail.iframe) attachIframe(parent, url);
         reposition();
       });
       img.src = src;
-      parent.appendChild(img);
+      parent.insertBefore(img, parent.firstChild); // top of the card
     } else if (config.thumbnail.iframe) {
       attachIframe(parent, url);
     }
@@ -171,7 +178,7 @@ export function createPopup(config) {
     frame.height = String(vp.height);
     frame.src = url;
     box.appendChild(frame);
-    parent.appendChild(box);
+    parent.insertBefore(box, parent.firstChild); // top of the card (page renders are wide)
     requestAnimationFrame(() => {
       const w = box.clientWidth || (config.popup.maxWidth || 360) - 28;
       const scale = w / vp.width;

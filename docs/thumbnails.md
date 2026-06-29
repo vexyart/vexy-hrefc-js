@@ -53,6 +53,15 @@ hrefc({
 });
 ```
 
+## Layout by shape
+
+The card lays the image out by its aspect ratio, measured once it loads:
+
+- **3:2 or wider** (screenshots, social cards) → full width, above the title (class `.hrefc-thumb-wide`).
+- **Narrower than 3:2** (portraits, posters) → 33% width, floated right, with the text wrapping beside it (class `.hrefc-thumb-float`).
+
+Restyle either with those classes — e.g. change the float width or drop it to full width.
+
 ## Custom providers
 
 A provider is a function: take the page URL, the extracted `data`, and the thumbnail options, and return an image URL — or `null` to pass to the next one.

@@ -17,11 +17,13 @@
   border-left:1px solid var(--hrefc-border);border-top:1px solid var(--hrefc-border);}
 .hrefc-head{display:flex;align-items:center;gap:8px;margin:0 0 4px;}
 .hrefc-favicon{width:16px;height:16px;flex:0 0 16px;border-radius:3px;object-fit:contain;}
-.hrefc-title{font-weight:600;font-size:1em;margin:0;color:var(--hrefc-title,inherit);}
+.hrefc-title{font-weight:600;font-size:1em;margin:0;color:var(--hrefc-title,inherit);text-wrap:balance;}
 .hrefc-desc{margin:2px 0 0;font-size:.92em;color:var(--hrefc-desc);}
 .hrefc-cta{display:block;margin-top:.5em;font-size:.85em;color:var(--hrefc-cta,inherit);}
-.hrefc-thumb{display:block;width:100%;height:auto;margin-top:10px;border-radius:8px;background:var(--hrefc-thumb-bg);}
-.hrefc-thumb-frame{position:relative;width:100%;margin-top:10px;border-radius:8px;overflow:hidden;background:var(--hrefc-thumb-bg);}
+.hrefc-thumb{display:none;height:auto;border-radius:8px;background:var(--hrefc-thumb-bg);}
+.hrefc-thumb-wide{display:block;width:100%;margin:0 0 10px;}
+.hrefc-thumb-float{display:block;width:33%;float:right;margin:.1em 0 .55em .85em;}
+.hrefc-thumb-frame{position:relative;width:100%;margin:0 0 10px;border-radius:8px;overflow:hidden;background:var(--hrefc-thumb-bg);}
 .hrefc-thumb-frame iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;}
 @media (prefers-color-scheme:dark){
   .hrefc-popup{--hrefc-bg:#1e1f22;--hrefc-fg:#e9e9ea;--hrefc-border:rgba(255,255,255,.14);

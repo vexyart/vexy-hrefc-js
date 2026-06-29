@@ -32,11 +32,13 @@ export function defaultCss(prefix = 'hrefc', opts = {}) {
   border-left:1px solid var(--${p}-border);border-top:1px solid var(--${p}-border);}
 .${p}-head{display:flex;align-items:center;gap:8px;margin:0 0 4px;}
 .${p}-favicon{width:16px;height:16px;flex:0 0 16px;border-radius:3px;object-fit:contain;}
-.${p}-title{font-weight:600;font-size:1em;margin:0;color:var(--${p}-title,inherit);}
+.${p}-title{font-weight:600;font-size:1em;margin:0;color:var(--${p}-title,inherit);text-wrap:balance;}
 .${p}-desc{margin:2px 0 0;font-size:.92em;color:var(--${p}-desc);}
 .${p}-cta{display:block;margin-top:.5em;font-size:.85em;color:var(--${p}-cta,inherit);}
-.${p}-thumb{display:block;width:100%;height:auto;margin-top:10px;border-radius:8px;background:var(--${p}-thumb-bg);}
-.${p}-thumb-frame{position:relative;width:100%;margin-top:10px;border-radius:8px;overflow:hidden;background:var(--${p}-thumb-bg);}
+.${p}-thumb{display:none;height:auto;border-radius:8px;background:var(--${p}-thumb-bg);}
+.${p}-thumb-wide{display:block;width:100%;margin:0 0 10px;}
+.${p}-thumb-float{display:block;width:33%;float:right;margin:.1em 0 .55em .85em;}
+.${p}-thumb-frame{position:relative;width:100%;margin:0 0 10px;border-radius:8px;overflow:hidden;background:var(--${p}-thumb-bg);}
 .${p}-thumb-frame iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;}
 @media (prefers-color-scheme:dark){
   .${p}-popup{--${p}-bg:#1e1f22;--${p}-fg:#e9e9ea;--${p}-border:rgba(255,255,255,.14);
