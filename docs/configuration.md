@@ -46,6 +46,7 @@ What goes on the card, and how the text is trimmed.
 | `description` | `true` | Show the description line. |
 | `thumbnail` | `false` | Show a preview image. Opt in. |
 | `favicon` | `false` | Show the site's favicon. Opt in. |
+| `cta` | `null` | Optional footer under the description, e.g. `"Click to read more"`. HTML allowed; styled via `.hrefc-cta`. |
 | `descriptionMaxLength` | `350` | Trim the description to this many characters. |
 | `stripTitleSuffix` | `false` | Trim `"Page \| Site"` down to `"Page"`. |
 | `titleSeparators` | `['\|', '–', '—', '·', '»', '::']` | Characters treated as the suffix boundary. |
@@ -57,6 +58,12 @@ hrefc({
 ```
 
 Title and description are on out of the box; thumbnail and favicon you turn on.
+
+The `cta` footer takes a string, HTML and all:
+
+```js
+hrefc({ content: { cta: 'Click to read more →' } });
+```
 
 <iframe src="{{ '/demos/02-description-favicon.html' | relative_url }}" style="width:100%;height:460px;border:1px solid #e4e4e8;border-radius:10px;margin:12px 0;" title="Description and favicon demo"></iframe>
 
@@ -120,7 +127,8 @@ The card itself — size, placement, theme, and behavior.
 |---|---|---|
 | `maxWidth` | `360` | Maximum card width, in pixels. |
 | `offset` | `12` | Gap between link and card, in pixels. |
-| `placement` | `'auto'` | `'auto'`, `'top'`, or `'bottom'`. |
+| `placement` | `'auto'` | `'auto'` prefers above the link and centers the card over it, flipping below only when there's no room; or force `'top'` / `'bottom'`. |
+| `arrow` | `true` | Show the speech-balloon connector pointing from the card at the link. |
 | `classPrefix` | `'hrefc'` | Prefix for generated class names. |
 | `appendTo` | `null` | Where to mount the card; defaults to `document.body`. Element or `() => Element`. |
 | `inheritFont` | `true` | Inherit the page's font. |

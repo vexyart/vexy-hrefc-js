@@ -11,6 +11,13 @@ permalink: /styling/
 
 The card ships looking fine and inheriting your page. When you want it to look like *yours*, there are three levels, each with more reach than the last: change a few CSS variables, target the classes directly, or take over the markup entirely.
 
+## Structure
+
+The popup is a wrapper around a visual card. `.hrefc-popup` handles positioning and the fade; inside it, `.hrefc-card` is the box you see and `.hrefc-arrow` is the speech-balloon connector pointing at the link. The `--hrefc-*` variables live on `.hrefc-popup`, and both the card and the arrow inherit them — so the arrow tracks the card's `--hrefc-bg` and `--hrefc-border` automatically. Turn it off with `popup: { arrow: false }`.
+
+{: .note }
+Styles inject at the top of `<head>`, so any CSS you load later wins without `!important`.
+
 ## Level 1: CSS variables
 
 For a quick reskin, override the `--hrefc-*` variables. No JavaScript, no fighting specificity — just set them on `.hrefc-popup` (or anywhere it inherits from).
@@ -26,6 +33,7 @@ For a quick reskin, override the `--hrefc-*` variables. No JavaScript, no fighti
 | `--hrefc-size` | `14px` | Base font size |
 | `--hrefc-title` | `inherit` | Title color |
 | `--hrefc-desc` | `rgba(0,0,0,.66)` | Description color |
+| `--hrefc-cta` | `inherit` | Call-to-action color |
 | `--hrefc-thumb-bg` | `rgba(0,0,0,.04)` | Thumbnail placeholder background |
 
 A warmer, rounder card in five lines:
@@ -41,15 +49,18 @@ A warmer, rounder card in five lines:
 
 ## Level 2: target the classes
 
-Variables don't cover everything — spacing between parts, the favicon size, a title underline. For that, write plain CSS against the class names.
+Variables don't cover everything — spacing between parts, the favicon size, a title underline. For that, write plain CSS against the class names. To override a box-level property directly rather than through a variable, target `.hrefc-card`, the visual box — not `.hrefc-popup`, which now only positions and fades.
 
 | Class | Part |
 |---|---|
-| `.hrefc-popup` | The card root |
+| `.hrefc-popup` | Positioning + fade wrapper |
+| `.hrefc-card` | Visual box — target for direct property overrides |
+| `.hrefc-arrow` | Speech-balloon connector |
 | `.hrefc-head` | Favicon + title row |
 | `.hrefc-favicon` | Favicon image |
 | `.hrefc-title` | Title |
 | `.hrefc-desc` | Description |
+| `.hrefc-cta` | Call-to-action footer |
 | `.hrefc-thumb` | Thumbnail image |
 | `.hrefc-thumb-frame` | Iframe-fallback wrapper |
 
@@ -61,6 +72,19 @@ Variables don't cover everything — spacing between parts, the favicon size, a 
 }
 .hrefc-favicon {
   border-radius: 50%;
+}
+```
+
+### Styling the call-to-action
+
+Set `content.cta` (say, `"Click to read more"`) and it renders as `.hrefc-cta` below the description. Style it with the `--hrefc-cta` variable or directly:
+
+```css
+.hrefc-cta {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #2563eb;
 }
 ```
 

@@ -37,9 +37,9 @@ Links opt in with `class="hrefc"` or `data-hrefc`, so you don't accidentally pre
 ## Features
 
 - **One file, no dependencies.** A single `<script>` tag, or `import` it. ~14.8 KB minified, ~5.5 KB gzipped.
-- **Silent failures.** No "Loading…", no error text. The card appears when it's ready, or not at all.
+- **Silent failures.** No "Loading…", no error text. The card fades in above the link — centered over it, with a speech-balloon connector pointing down — when it's ready, or not at all.
 - **CORS handled.** Cross-origin links route through a pluggable reader proxy (`r.jina.ai` by default).
-- **Title, description, thumbnail, favicon.** Each one toggleable. Title and description are on; the rest opt in.
+- **Title, description, thumbnail, favicon.** Each one toggleable. Title and description are on; the rest opt in. Add an optional "Click to read more" footer when you want one.
 - **Yours to restyle.** Inherits the page's fonts and colors, follows the system dark/light setting, and bends to CSS variables or a full custom `render()`.
 
 ## Configuring it
@@ -52,6 +52,7 @@ hrefc({
   content: {
     thumbnail: true,               // show a thumbnail
     favicon: true,                 // show the site's favicon
+    cta: 'Click to read more',     // optional footer nudging the click
     stripTitleSuffix: true,        // trim "Page | Site" → "Page"
   },
   popup: {

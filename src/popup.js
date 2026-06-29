@@ -198,7 +198,8 @@ export function createPopup(config) {
       placement = fitsAbove ? 'top' : fitsBelow ? 'bottom' : 'top';
     }
     let top = placement === 'top' ? r.top - pr.height - offset : r.bottom + offset;
-    let left = r.left;
+    // Centre the card over the link; clamping below keeps it on-screen.
+    let left = r.left + r.width / 2 - pr.width / 2;
 
     if (left + pr.width > vw - margin) left = vw - margin - pr.width;
     if (left < margin) left = margin;

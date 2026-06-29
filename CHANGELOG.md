@@ -4,6 +4,32 @@ All notable changes to `vexy-hrefc` are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2026-06-29
+
+### Changed
+
+- **Card centered over the link.** The preview now sits horizontally centered
+  on the link it previews, clamped to stay within the viewport.
+
+## [1.0.4] - 2026-06-29
+
+### Added
+
+- **Speech-balloon arrow connector.** A small arrow points from the card down to
+  the link. On by default; turn it off with `popup.arrow: false`.
+- **Call-to-action footer.** An optional `content.cta` string or HTML — e.g.
+  `"Click to read more"` — renders below the description, styled via the
+  `.hrefc-cta` class. Off by default.
+
+### Changed
+
+- **Placement above the link.** The card now appears above the link by default,
+  not below. `popup.placement` accepts `'auto'` (default, prefers above),
+  `'top'`, or `'bottom'`.
+- **Smoother fade-in** when the card appears.
+- **Styles inject at the top of `<head>`**, so page CSS overrides them without
+  needing `!important`.
+
 ## [1.0.0] - 2026-06-29
 
 The production rewrite. The in-page prototype becomes a real library: one file,

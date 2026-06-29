@@ -45,7 +45,7 @@ Mark the links you want previewed with `class="hrefc"`, then call `Hrefc()`. Don
 </script>
 ```
 
-Hover the link. A card fades in with the page's title and a line about it. Move away, it's gone.
+Hover the link. A card fades in above the link, centered over it, with a small connector arrow pointing back down — the page's title and a line about it inside. Move away, it's gone.
 
 <iframe src="{{ '/demos/01-basic.html' | relative_url }}" style="width:100%;height:460px;border:1px solid #e4e4e8;border-radius:10px;margin:12px 0;" title="Basic preview demo"></iframe>
 

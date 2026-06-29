@@ -8,7 +8,7 @@ nav_order: 1
 
 # Hover a link, see what's behind it
 
-No click. No new tab. No leaving the page. Point at a link, and a small card fades in with the target's title and a line about it. Move away, and it's gone.
+No click. No new tab. No leaving the page. Point at a link, and a small card fades in above it — centered, with a connector arrow — carrying the target's title and a line about it. Move away, and it's gone.
 
 `vexy-hrefc` is a client-side link previewer in one file, with no dependencies. It reads Open Graph tags first, falls back through plainer HTML, and when the browser blocks the request — which it often does — it routes through a reader proxy instead. It fails silently by design: a broken preview shows nothing, never an error.
 
