@@ -1,0 +1,90 @@
+/* this_file: docs/assets/demo.css
+   Shared styling for the standalone demo pages. The demos show two things side
+   by side: copyable source, and the live widget running on real links. */
+
+:root {
+  --d-bg: #fbfbfc;
+  --d-fg: #1a1a1a;
+  --d-muted: #6a6a72;
+  --d-border: #e4e4e8;
+  --d-card: #fff;
+  --d-accent: #2d6cdf;
+  --d-code-bg: #1e1f22;
+  --d-code-fg: #e9e9ea;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --d-bg: #161719;
+    --d-fg: #e9e9ea;
+    --d-muted: #9a9aa2;
+    --d-border: #2a2b2f;
+    --d-card: #1e1f22;
+    --d-accent: #6ea0ff;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--d-bg);
+  color: var(--d-fg);
+  line-height: 1.55;
+}
+.demo-wrap { max-width: 860px; margin: 0 auto; padding: 28px 22px 80px; }
+.demo-wrap h1 { font-size: 1.5rem; margin: 0 0 4px; }
+.demo-wrap .lede { color: var(--d-muted); margin: 0 0 24px; }
+.demo-step { margin: 0 0 36px; }
+.demo-step h2 { font-size: 1.05rem; margin: 0 0 8px; }
+.demo-step p { color: var(--d-muted); margin: 0 0 12px; }
+
+/* Code block with a copy button. */
+.code {
+  position: relative;
+  background: var(--d-code-bg);
+  color: var(--d-code-fg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.code pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow: auto;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.code .copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.code .copy:hover { background: rgba(255, 255, 255, 0.16); }
+.code .copy.copied { background: #2e7d4f; border-color: #2e7d4f; }
+
+/* The live preview frame: a labelled box holding real, hoverable links. */
+.preview {
+  margin-top: 12px;
+  border: 1px solid var(--d-border);
+  border-radius: 10px;
+  background: var(--d-card);
+  padding: 22px;
+}
+.preview::before {
+  content: "live preview — hover the links";
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--d-muted);
+  margin-bottom: 12px;
+}
+.preview p { margin: 0 0 10px; color: var(--d-fg); }
+.preview a { color: var(--d-accent); text-decoration: underline; text-underline-offset: 2px; }
+.demo-nav { font-size: 14px; margin-bottom: 18px; }
+.demo-nav a { color: var(--d-accent); }

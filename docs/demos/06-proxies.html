@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- this_file: docs/demos/06-proxies.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 6 — Proxies &amp; CORS · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>6. Proxies &amp; CORS</h1>
+      <p class="lede">Why cross-origin links need a helper, and how to pick your own.</p>
+
+      <div class="demo-step">
+        <h2>The problem</h2>
+        <p>A browser won't let a page read another site's response. So to preview a cross-origin link, vexy-hrefc routes the fetch through a reader proxy that hands back the page's HTML. The default chain is one entry: <code>jina</code> (r.jina.ai).</p>
+      </div>
+
+      <div class="demo-step">
+        <h2>Pick the chain</h2>
+        <p>List the proxies you want, in order. Each is tried until one works. Three are built in: <code>jina</code>, <code>allorigins</code>, <code>corsproxy</code>.</p>
+        <div class="code"><pre>Hrefc({
+  fetch: { proxies: ['jina', 'allorigins'] },
+});</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Bring your own</h2>
+        <p>A proxy is just a function: take a URL and an <code>AbortSignal</code>, return the page's HTML as a string. Throw to fall through to the next one.</p>
+        <div class="code"><pre>Hrefc({
+  fetch: {
+    proxies: [
+      async (url, signal) =&gt; (await fetch(myProxy + url, { signal })).text(),
+      'jina', // fall back to a built-in
+    ],
+  },
+});</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Skip the proxy when you can</h2>
+        <p>Some sites send permissive CORS headers and can be read directly. Tell vexy-hrefc to try a native fetch first and only fall back to the proxy chain if it fails:</p>
+        <div class="code"><pre>Hrefc({
+  fetch: { crossOriginStrategy: 'native-first' },
+});</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>See it</h2>
+        <p>These links are cross-origin, so they go through the default <code>jina</code> proxy. They'll fill in when the network cooperates.</p>
+        <div class="preview">
+          <p>Read about a <a class="hrefc" href="https://en.wikipedia.org/wiki/Proxy_server">proxy server</a>.</p>
+          <p>Or <a class="hrefc" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> on MDN.</p>
+          <p>Or the <a class="hrefc" href="https://www.bbc.com/news">BBC News</a> front page.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc();
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

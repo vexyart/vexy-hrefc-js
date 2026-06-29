@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- this_file: docs/demos/04-styling.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 4 — Styling · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+    <!-- The reskin below is what makes this page's live card look different. -->
+    <style>
+      .hrefc-popup {
+        --hrefc-bg: #1a1530;
+        --hrefc-fg: #ece8ff;
+        --hrefc-border: #3a2f5e;
+        --hrefc-radius: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>4. Styling</h1>
+      <p class="lede">Change a few CSS variables for a quick reskin. Reach for the classes when you want more.</p>
+
+      <div class="demo-step">
+        <h2>Reskin with variables</h2>
+        <p>The card reads its colours, radius, and spacing from <code>--hrefc-*</code> variables. Override them on <code>.hrefc-popup</code> and you're done — no JavaScript.</p>
+        <div class="code"><pre>&lt;style&gt;
+  .hrefc-popup {
+    --hrefc-bg: #1a1530;
+    --hrefc-fg: #ece8ff;
+    --hrefc-border: #3a2f5e;
+    --hrefc-radius: 14px;
+  }
+&lt;/style&gt;</pre></div>
+        <div class="preview">
+          <p>Hover <a class="hrefc" href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a> to see the purple card this page sets up.</p>
+          <p>Or <a class="hrefc" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">CSS custom properties</a> on MDN.</p>
+        </div>
+      </div>
+
+      <div class="demo-step">
+        <h2>The full set</h2>
+        <p>Every knob, same prefix: <code>--hrefc-bg</code>, <code>--hrefc-fg</code>, <code>--hrefc-border</code>, <code>--hrefc-radius</code>, <code>--hrefc-shadow</code>, <code>--hrefc-pad</code>, <code>--hrefc-size</code>, <code>--hrefc-title</code>, <code>--hrefc-desc</code>, <code>--hrefc-thumb-bg</code>.</p>
+      </div>
+
+      <div class="demo-step">
+        <h2>Dark mode</h2>
+        <p>By default the card follows the system theme via <code>prefers-color-scheme</code>. To pin it, set the theme yourself:</p>
+        <div class="code"><pre>Hrefc({
+  popup: { theme: 'dark' }, // 'auto' | 'light' | 'dark'
+});</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Beyond variables</h2>
+        <p>For finer control, target the parts directly: <code>.hrefc-title</code>, <code>.hrefc-desc</code>, <code>.hrefc-favicon</code>, <code>.hrefc-thumb</code>, and the rest. If you'd rather throw out the markup entirely and build your own card, see <a href="05-custom-render.html">custom render</a>.</p>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc();
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

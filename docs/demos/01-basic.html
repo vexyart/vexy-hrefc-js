@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- this_file: docs/demos/01-basic.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 1 — Basic · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>1. The one-liner</h1>
+      <p class="lede">Add a class to a link, call one function. That's the whole setup.</p>
+
+      <div class="demo-step">
+        <h2>The code</h2>
+        <p>Load the script, mark the links you want previewed with <code>class="hrefc"</code>, and start it.</p>
+        <div class="code"><pre>&lt;script src="https://cdn.jsdelivr.net/npm/vexy-hrefc/dist/hrefc.global.min.js"&gt;&lt;/script&gt;
+
+&lt;a class="hrefc" href="https://en.wikipedia.org/wiki/Hyperlink"&gt;hyperlink&lt;/a&gt;
+
+&lt;script&gt;
+  Hrefc(); // uses sensible defaults
+&lt;/script&gt;</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>What it does</h2>
+        <p>Hover a link below. After a beat, a card fades in with the target's title and description. No click, no new tab. Leave, and it's gone.</p>
+        <div class="preview">
+          <p>Read about the <a class="hrefc" href="https://en.wikipedia.org/wiki/Hyperlink">hyperlink</a>, the humble thing this whole library is about.</p>
+          <p>Or the MDN page on <a class="hrefc" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">the anchor element</a>.</p>
+          <p>Or this very project on <a class="hrefc" href="https://github.com/vexyart/vexy-hrefc-js">GitHub</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc();
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

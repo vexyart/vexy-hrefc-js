@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- this_file: docs/demos/03-thumbnails.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 3 — Thumbnails · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>3. Thumbnails</h1>
+      <p class="lede">A picture on the card, when one can be found. Off by default — pictures cost a round trip.</p>
+
+      <div class="demo-step">
+        <h2>Turn it on</h2>
+        <p>Flip <code>thumbnail</code> to <code>true</code>. The text shows first; the image slides in once it loads, so a slow picture never holds up the card.</p>
+        <div class="code"><pre>&lt;script src="https://cdn.jsdelivr.net/npm/vexy-hrefc/dist/hrefc.global.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  Hrefc({
+    content: { thumbnail: true },
+  });
+&lt;/script&gt;</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Where the picture comes from</h2>
+        <p>vexy-hrefc tries a few sources in order and stops at the first that works:</p>
+        <p>
+          1. the page's own <code>og:image</code> →
+          2. an mShots screenshot (keyless) →
+          3. Microlink →
+          4. a click-protected iframe of the page itself →
+          5. nothing, and the card stays text-only. No broken-image icon, no fuss.
+        </p>
+      </div>
+
+      <div class="demo-step">
+        <h2>See it</h2>
+        <p>These links all ship a good <code>og:image</code>, so the card gets the real article picture. The card is taller than a text-only one — that's expected.</p>
+        <div class="preview">
+          <p>The <a class="hrefc" href="https://en.wikipedia.org/wiki/Hubble_Space_Telescope">Hubble Space Telescope</a> has a striking lead photo.</p>
+          <p>Today's <a class="hrefc" href="https://www.bbc.com/news">BBC News</a> front page carries its current splash image.</p>
+          <p>And <a class="hrefc" href="https://github.com/vexyart/vexy-hrefc-js">this repo</a> shows its GitHub social card.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc({
+        content: { thumbnail: true },
+      });
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

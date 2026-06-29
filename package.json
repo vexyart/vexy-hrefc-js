@@ -1,0 +1,57 @@
+{
+  "name": "vexy-hrefc",
+  "version": "1.0.0",
+  "description": "Hover a link, see what's behind it. A tiny, dependency-free link-preview popup library (ESM + global).",
+  "type": "module",
+  "main": "./dist/hrefc.esm.js",
+  "module": "./dist/hrefc.esm.js",
+  "types": "./dist/hrefc.d.ts",
+  "unpkg": "./dist/hrefc.global.min.js",
+  "jsdelivr": "./dist/hrefc.global.min.js",
+  "exports": {
+    ".": {
+      "types": "./dist/hrefc.d.ts",
+      "import": "./dist/hrefc.esm.js"
+    },
+    "./css": "./dist/hrefc.css",
+    "./dist/*": "./dist/*"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "link-preview",
+    "hover-preview",
+    "tooltip",
+    "open-graph",
+    "og",
+    "preview",
+    "webflow",
+    "esm",
+    "zero-dependency"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vexyart/vexy-hrefc-js.git"
+  },
+  "homepage": "https://vexyart.github.io/vexy-hrefc-js/",
+  "bugs": {
+    "url": "https://github.com/vexyart/vexy-hrefc-js/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Adam Twardoch",
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "linkedom": "^0.18.12"
+  }
+}
