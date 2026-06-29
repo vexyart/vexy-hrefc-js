@@ -53,3 +53,25 @@ Flat, actionable mirror of `PLAN.md`. Check items as they land.
 - [x] `private/WEBFLOW.md` — exact swap steps for the `/lines` page 
 - [x] `CHANGELOG.md` — 0.1.0 → 1.0.0 notes 
 - [x] Final verify: build + test green (19/19), all 6 demos verified end-to-end, all iframe refs resolve
+
+## Post-1.0 shipped
+- [x] Published `vexy-hrefc` 1.0.0 → 1.0.2 to npm; clean `v1.0.2` tag
+- [x] Tooltip polish (1.0.3): delicate fade-in, above-the-link default placement, speech-balloon arrow connector, configurable `content.cta`, styles injected at top of `<head>` so page CSS wins
+- [ ] Finish publishing 1.0.3 to npm (blocked on interactive 2FA OTP — run `npm publish` in a terminal)
+
+## P7 — Prefetch (issues/101 #1, see PLAN §9.1)
+- [ ] `prefetch` config (default `true`) + `prefetchConcurrency` (default 4)
+- [ ] Idle-scheduled prefetch of matched links after `refresh()` (`requestIdleCallback` → `setTimeout` fallback)
+- [ ] Concurrency-capped queue; reuse cache + in-flight de-dupe
+- [ ] `prefetch: false` (lazy) opt-out; optional `'visible'` mode via IntersectionObserver
+- [ ] Docs: prefetch section + rate-limit guidance
+
+## P8 — Per-link config (issues/101 #2, see PLAN §9.2)
+- [ ] Refactor: split raw fetch+extract (cached by URL, full superset) from per-link render
+- [ ] Apply `descriptionMaxLength` / `stripTitleSuffix` at render time, not extract time
+- [ ] `modifiers` config (class → partial config); built-in `thumb`, `favicon`
+- [ ] `data-hrefc-*` attribute overrides (thumbnail, favicon, cta, placement, title)
+- [ ] Per-link config resolution (base → modifiers → data-attrs) with precedence rules
+- [ ] "All links" preset (`selector: 'a[href]'`) documented
+- [ ] Tests: per-link resolution; cache-by-URL with varying render configs
+- [ ] Docs + demo: modifier classes and data-attributes

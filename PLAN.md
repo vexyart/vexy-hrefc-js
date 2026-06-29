@@ -193,7 +193,11 @@ Exact steps to swap the v0.1 prototype on the `/lines` page for the new build: w
 
 **P5 — Docs & demos.** Jekyll scaffold, 8 Markdown pages, 6 HTML demos, copy buttons, embedded previews.
 
-**P6 — Ship.** `publish.sh`, `src/hrefc.d.ts`, README, `WEBFLOW.md`, CHANGELOG. → NPM-ready.
+**P6 — Ship.** `publish.sh`, `src/hrefc.d.ts`, README, `WEBFLOW.md`, CHANGELOG. → NPM-ready. *(Shipped: 1.0.0–1.0.3, incl. fade-in, above-the-link placement, speech-balloon arrow, configurable CTA.)*
+
+**P7 — Prefetch.** Warm the cache for matched links on init, idle-scheduled and concurrency-capped. Default on; `prefetch: false` for lazy. → popups appear instantly. *(issues/101 #1; designed in §9.1.)*
+
+**P8 — Per-link config.** Modifier classes + `data-` attributes for per-link overrides (thumbnail, favicon, CTA…), plus an "all links" mode. Decouple raw fetch (cached by URL) from per-link render. → one init, many behaviors. *(issues/101 #2; designed in §9.2.)*
 
 ---
 
@@ -214,3 +218,36 @@ Exact steps to swap the v0.1 prototype on the `/lines` page for the new build: w
 - **iframe thumbnails are heavy.** Mitigation: off unless thumbnails requested, lazy (only on show), separately disableable.
 - **Scope creep toward a "preview platform."** Mitigation: it's a hover card. No analytics, no SSR, no backend. Client-side only, as the brief says.
 - **`npx` is shimmed to `pnpm dlx` on the dev machine.** Mitigation: build runs through `npm run` scripts using local `node_modules/.bin`, never bare `npx`.
+
+---
+
+## 9. Roadmap — faster & per-link previews (from `issues/101.md`)
+
+Two requests, both real features. Designed here; not yet built.
+
+### 9.1 Prefetch by default — instant popups
+
+Today the fetch happens on hover, so the first preview of each link waits on the network. Warm the cache before the user hovers.
+
+- **Default: eager.** After `refresh()` attaches links, enqueue a metadata prefetch for every matched link. On hover the data is already cached, so the popup is instant.
+- **Scheduling.** Run prefetch from `requestIdleCallback` (fallback `setTimeout`) so it never blocks first paint or the page's own scripts — "once the library is initialized and all other code is executed".
+- **Politeness.** `/lines` has ~34 help links. Firing 34 `r.jina.ai` requests at once invites rate-limiting. Cap concurrency (default ~4) with a small queue; reuse the existing in-flight de-dupe and cache.
+- **Opt-out.** `prefetch: false` restores hover-time fetching. A `prefetch: 'visible'` mode (IntersectionObserver) is a possible middle ground for very long pages.
+- **Config:** `prefetch: true | false` (default `true`), `prefetchConcurrency: 4`.
+- **Interaction with 9.2:** prefetch warms *metadata only* (title/description/og:image extraction). Thumbnails and iframes still resolve on show, so a thumbnail link doesn't trigger a screenshot request during prefetch.
+
+### 9.2 Per-link configuration — classes and data-attributes
+
+One init, several behaviors, chosen per link.
+
+- **Modes.** Base trigger class (default `hrefc`): `<a class="hrefc">` → title + description. All links: `selector: 'a[href]'` (documented preset) previews everything.
+- **Per-link overrides, two ways:**
+  - **Modifier classes** — a `modifiers` map of class → partial config. `<a class="hrefc thumb">` enables the thumbnail; `<a class="hrefc favicon">` adds the favicon. Ships sensible defaults (`thumb`, `favicon`), fully user-definable.
+  - **`data-` attributes** — `data-hrefc-thumbnail`, `data-hrefc-favicon`, `data-hrefc-cta="Read the docs →"`, `data-hrefc-placement="bottom"`. Presence = true, `="false"` = off; string attrs carry values. More powerful than classes (set, not just toggle).
+- **Resolution.** Per link, merge: base config → matched modifier overrides → data-attribute overrides → the config used for that link's render. Proposed precedence: data-attribute wins over class, most specific last.
+- **Caching refactor (the load-bearing part).** The cache is keyed by URL. If per-link config changed *what gets fetched/extracted*, two links to one URL would collide. Fix: the fetch+extract step always pulls the full superset (raw title, full body text, `og:image`, favicon) and caches that by URL; per-link config only controls **rendering** — which fields show, `descriptionMaxLength`, `stripTitleSuffix`, thumbnail provider use. One cache entry per URL; links vary freely.
+- **Config:** `modifiers: { thumb: { content: { thumbnail: true } }, favicon: { content: { favicon: true } } }`; `dataAttributes: true` (read `data-hrefc-*`).
+
+### 9.3 Sequencing
+
+P7 (prefetch) is small and self-contained — do it first. P8 (per-link) needs the fetch/render split from 9.2's caching refactor before the modifier/data-attribute layer goes on top.

@@ -63,6 +63,12 @@
       "type": "file"
     },
     {
+      "path": "PLAN.md",
+      "accessCount": 6,
+      "lastAccessed": 1782749214913,
+      "type": "file"
+    },
+    {
       "path": "hrefc.d.ts",
       "accessCount": 5,
       "lastAccessed": 1782737885608,
@@ -117,12 +123,6 @@
       "type": "file"
     },
     {
-      "path": "PLAN.md",
-      "accessCount": 3,
-      "lastAccessed": 1782739488071,
-      "type": "file"
-    },
-    {
       "path": "src/popup.js",
       "accessCount": 3,
       "lastAccessed": 1782748784186,
@@ -132,6 +132,12 @@
       "path": "src/hrefc.d.ts",
       "accessCount": 3,
       "lastAccessed": 1782748849079,
+      "type": "file"
+    },
+    {
+      "path": "TODO.md",
+      "accessCount": 3,
+      "lastAccessed": 1782749237916,
       "type": "file"
     },
     {
@@ -198,12 +204,6 @@
       "path": "CLAUDE.md",
       "accessCount": 1,
       "lastAccessed": 1782735204113,
-      "type": "file"
-    },
-    {
-      "path": "TODO.md",
-      "accessCount": 1,
-      "lastAccessed": 1782736809344,
       "type": "file"
     },
     {
@@ -300,6 +300,12 @@
       "path": "docs/recipes.md",
       "accessCount": 1,
       "lastAccessed": 1782738001548,
+      "type": "file"
+    },
+    {
+      "path": "issues/101.md",
+      "accessCount": 1,
+      "lastAccessed": 1782749076841,
       "type": "file"
     }
   ],
