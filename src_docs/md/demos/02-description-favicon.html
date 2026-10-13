@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- this_file: docs/demos/02-description-favicon.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 2 — Content toggles · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>2. Content toggles</h1>
+      <p class="lede">Decide what goes on the card. The title always shows; everything else is a switch.</p>
+
+      <div class="demo-step">
+        <h2>The defaults</h2>
+        <p>Out of the box you get the title and a description. That's the card on the previous page.</p>
+        <div class="code"><pre>Hrefc(); // title + description</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Drop the description</h2>
+        <p>Want just the title? Turn the description off. The card shrinks to a single line.</p>
+        <div class="code"><pre>Hrefc({
+  content: { description: false },
+});</pre></div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Add a favicon</h2>
+        <p>Switch on <code>favicon</code> and the site's little icon sits before the title, so you can tell at a glance where the link goes.</p>
+        <div class="code"><pre>&lt;script src="https://cdn.jsdelivr.net/npm/vexy-hrefc/dist/hrefc.global.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  Hrefc({
+    content: { favicon: true }, // description stays on
+  });
+&lt;/script&gt;</pre></div>
+        <div class="preview">
+          <p>Hover the entry on <a class="hrefc" href="https://en.wikipedia.org/wiki/Favicon">the favicon</a> and watch its own favicon turn up on the card.</p>
+          <p>Same on <a class="hrefc" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link">MDN's link element</a> page.</p>
+          <p>And on <a class="hrefc" href="https://github.com/vexyart/vexy-hrefc-js">this project</a>.</p>
+        </div>
+      </div>
+
+      <div class="demo-step">
+        <h2>Trim long descriptions</h2>
+        <p>Descriptions get cut to <code>descriptionMaxLength</code> characters (350 by default) so a chatty meta tag can't grow the card forever. Lower it for terser cards.</p>
+        <div class="code"><pre>Hrefc({
+  content: { descriptionMaxLength: 140 },
+});</pre></div>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc({
+        content: { favicon: true },
+      });
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

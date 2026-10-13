@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- this_file: docs/demos/05-custom-render.html -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo 5 — Custom render · vexy-hrefc</title>
+    <link rel="stylesheet" href="../assets/demo.css" />
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <p class="demo-nav"><a href="./">← all demos</a></p>
+      <h1>5. Custom render</h1>
+      <p class="lede">When variables aren't enough, build the card yourself. You get the data; you return the markup.</p>
+
+      <div class="demo-step">
+        <h2>Your own card</h2>
+        <p>Pass a <code>render</code> function. It receives the extracted data — <code>title</code>, <code>description</code>, <code>image</code>, <code>favicon</code>, <code>url</code> — and the link element. Return an HTML string and vexy-hrefc drops it into the popup.</p>
+        <div class="code"><pre>Hrefc({
+  render: function (data) {
+    var host = data.url;
+    try { host = new URL(data.url).hostname.replace(/^www\./, ''); } catch (e) {}
+    return (
+      '&lt;div style="max-width:280px"&gt;' +
+        '&lt;div style="font-weight:600;margin-bottom:2px"&gt;' + data.title + '&lt;/div&gt;' +
+        '&lt;div style="font-size:12px;opacity:.7"&gt;' + host + ' →&lt;/div&gt;' +
+      '&lt;/div&gt;'
+    );
+  },
+});</pre></div>
+        <div class="preview">
+          <p>Hover <a class="hrefc" href="https://en.wikipedia.org/wiki/Web_template_system">templating</a> for the compact card.</p>
+          <p>Or <a class="hrefc" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">the DOM</a> on MDN.</p>
+          <p>Or <a class="hrefc" href="https://nodejs.org">Node.js</a>.</p>
+        </div>
+      </div>
+
+      <div class="demo-step">
+        <h2>A string sets innerHTML</h2>
+        <p><code>title</code> and <code>description</code> come from the target page, so a returned string is trusted as-is. Escape anything you don't control, or return a real DOM <code>Node</code> instead and skip <code>innerHTML</code> altogether:</p>
+        <div class="code"><pre>Hrefc({
+  render: function (data) {
+    var el = document.createElement('div');
+    el.textContent = data.title; // text, never parsed as HTML
+    return el;
+  },
+});</pre></div>
+      </div>
+    </div>
+
+    <!-- Demos load the locally-built bundle so they work before npm publish. -->
+    <script src="../assets/hrefc.global.min.js"></script>
+    <script>
+      Hrefc({
+        render: function (data) {
+          var host = data.url;
+          try {
+            host = new URL(data.url).hostname.replace(/^www\./, '');
+          } catch (e) {}
+          return (
+            '<div style="max-width:280px">' +
+            '<div style="font-weight:600;margin-bottom:2px">' +
+            data.title +
+            '</div>' +
+            '<div style="font-size:12px;opacity:.7">' +
+            host +
+            ' →</div>' +
+            '</div>'
+          );
+        },
+      });
+    </script>
+    <script src="../assets/demo.js"></script>
+  </body>
+</html>

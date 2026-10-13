@@ -1,5 +1,7 @@
 # vexy-hrefc
 
+**Documentation:** https://vexy.dev/vexy-hrefc-js/
+
 Hover a link, see what's behind it. No click, no new tab, no leaving the page.
 
 `vexy-hrefc` is a client-side link-preview popup in one file, with no dependencies. Point at a link and a small card fades in with the target page's title and a line about it. It reads Open Graph tags first, falls back through plainer HTML, and when the browser blocks the request — which it often does — it routes through a reader proxy instead.
@@ -62,12 +64,14 @@ hrefc({
 });
 ```
 
-Every option, with defaults and examples, lives in the [configuration docs](https://vexyart.github.io/vexy-hrefc-js/configuration/).
+Every option, with defaults and examples, lives in the [configuration docs](https://vexy.dev/vexy-hrefc-js/configuration/).
 
 ## Build & test
 
 ```bash
-./build.sh        # install dependencies, then build dist/
+./build.sh        # install dependencies, build dist/, then build the docs site
+./build.sh lib    # install dependencies, then build dist/
+./build.sh docs   # build the docs site from src_docs/ into docs/
 npm run build     # build dist/ only
 npm test          # run the test suite (node --test)
 ```
@@ -76,8 +80,8 @@ On some machines `npm` is a pnpm shim; the scripts use only commands both accept
 
 ## Links
 
-- **Docs:** <https://vexyart.github.io/vexy-hrefc-js/>
-- **Demos:** <https://vexyart.github.io/vexy-hrefc-js/demos/>
+- **Docs:** <https://vexy.dev/vexy-hrefc-js/>
+- **Demos:** <https://vexy.dev/vexy-hrefc-js/demos/>
 - **GitHub:** <https://github.com/vexyart/vexy-hrefc-js>
 - **npm:** <https://www.npmjs.com/package/vexy-hrefc>
 

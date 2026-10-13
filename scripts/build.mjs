@@ -43,14 +43,14 @@ writeFileSync('dist/hrefc.css', defaultCss('hrefc').trim() + '\n');
 // Ship the hand-written type definitions alongside the JS they describe.
 cpSync('src/hrefc.d.ts', 'dist/hrefc.d.ts');
 
-// Vendor the bundle into the docs site so GitHub Pages and the demos work
-// immediately, before anything is published to npm.
-mkdirSync('docs/assets', { recursive: true });
-cpSync('dist/hrefc.global.min.js', 'docs/assets/hrefc.global.min.js');
-cpSync('dist/hrefc.css', 'docs/assets/hrefc.css');
+// Vendor the bundle into the docs source so the demos work before anything is
+// published to npm. src_docs/build.sh copies src_docs/md/ into docs/ for Pages.
+mkdirSync('src_docs/md/assets', { recursive: true });
+cpSync('dist/hrefc.global.min.js', 'src_docs/md/assets/hrefc.global.min.js');
+cpSync('dist/hrefc.css', 'src_docs/md/assets/hrefc.css');
 
 const sizeOf = (f) => (statSync('dist/' + f).size / 1024).toFixed(1) + ' KB';
-console.log('built dist/  (+ copied to docs/assets/)');
+console.log('built dist/  (+ copied to src_docs/md/assets/)');
 for (const f of ['hrefc.esm.js', 'hrefc.global.js', 'hrefc.global.min.js', 'hrefc.css', 'hrefc.d.ts']) {
   console.log('  ' + f.padEnd(22) + sizeOf(f));
 }
