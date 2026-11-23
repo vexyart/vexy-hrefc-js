@@ -1,4 +1,4 @@
-# vexy-hrefc
+# Hrefc {#vexy-hrefc}
 
 Point at a link and a small card fades in above it, centred over the link, with a connector arrow. The card shows the target page's title and a line about it. Move the pointer away and the card disappears.
 

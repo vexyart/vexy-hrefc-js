@@ -141,7 +141,7 @@ Three levels, increasing power:
 
 ### Scripts
 
-- `./build.sh` — `npm install` then `npm run build`. Clean `dist/`, bundle all targets, report sizes.
+- `./build.sh` installs dependencies, builds the library into `dist/`, then builds the documentation into `docs/`.
 - `./publish.sh` — guard (clean tree, tests pass, version bumped), build, `npm publish`, tag, push.
 - `package.json`: `main`/`module`/`exports`/`unpkg`/`jsdelivr`/`types` wired correctly. Hand-written `src/hrefc.d.ts`, copied to `dist/` by the build.
 
@@ -149,7 +149,7 @@ Three levels, increasing power:
 
 ## 5. Documentation & demos (`docs/`)
 
-GitHub Pages, Jekyll, `remote_theme: just-the-docs/just-the-docs`. Every concept appears twice: as copyable code and as a live, isolated preview.
+GitHub Pages serves the generated `docs/` directory. `./build.sh docs` runs ProperDocs in strict mode using `src_docs/mkdocs.yml` and fly-january 0.1.1 with `chrome: none`.
 
 The trick that ties them together: the **demos are the previews**. Standalone HTML files in `docs/demos/` load the built global script and show progressive examples — each with its source visible and copyable, and the live widget running right there. The Markdown pages embed those same demos via `<iframe>` and repeat the code in fenced blocks. One source of truth, two front doors.
 
@@ -191,7 +191,7 @@ Exact steps to swap the v0.1 prototype on the `/lines` page for the new build: w
 
 **P4 — Tests & verify.** Unit tests for extraction, config, cache, proxy shaping. Build passes, sizes reported. → green.
 
-**P5 — Docs & demos.** Jekyll scaffold, 8 Markdown pages, 6 HTML demos, copy buttons, embedded previews.
+**P5 — Docs & demos.** ProperDocs configuration, Markdown pages, 6 HTML demos, copy buttons, embedded previews.
 
 **P6 — Ship.** `publish.sh`, `src/hrefc.d.ts`, README, `WEBFLOW.md`, CHANGELOG. → NPM-ready. *(Shipped: 1.0.0–1.0.3, incl. fade-in, above-the-link placement, speech-balloon arrow, configurable CTA.)*
 
@@ -207,7 +207,7 @@ Exact steps to swap the v0.1 prototype on the `/lines` page for the new build: w
 - Cross-origin links preview via proxy without console errors visible to end users.
 - Failures are invisible: no stuck popups, no error text, no thrown exceptions in the page.
 - Restyling needs no library edits — CSS variables for quick changes, `render()` for total control.
-- `docs/` builds on GitHub Pages; every page shows copyable code and a live preview.
+- The strict build generates `docs/` for GitHub Pages, including copyable code and live previews.
 - Minified global bundle stays small (target < 12KB min, < 5KB gzipped).
 
 ---

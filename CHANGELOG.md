@@ -4,6 +4,12 @@ All notable changes to `vexy-hrefc` are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Site now uses the fly-january 0.1.1 theme (chrome: none)
+
 ## [1.0.5] - 2026-06-29
 
 ### Changed

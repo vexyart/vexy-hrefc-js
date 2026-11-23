@@ -36,13 +36,13 @@ Flat, actionable mirror of `PLAN.md`. Check items as they land.
 - [x] `npm run build` green; sizes recorded (global.min 14.8 KB / 5.5 KB gz)
 
 ## P5 — Docs & demos
-- [x] `docs/_config.yml` — `remote_theme: just-the-docs`, nav, copy-code button
-- [x] `docs/Gemfile` + `docs/index.md`
+- [x] Configure fly-january 0.1.1 with `chrome: none` in `src_docs/mkdocs.yml`
+- [x] Build `src_docs/md/index.md` and the other Markdown pages into `docs/` with `./build.sh docs`
 - [x] Demo harness: `docs/assets/demo.css` + `docs/assets/demo.js` (copy buttons)
 - [x] `docs/demos/01-basic.html` + `docs/demos/index.html`
 - [x] `docs/demos/02-description-favicon.html` … `06-proxies.html` 
-- [x] `docs/getting-started.md`, `configuration.md`, `api-reference.md` 
-- [x] `docs/styling.md`, `fetching-cors.md`, `thumbnails.md`, `recipes.md` 
+- [x] `src_docs/md/getting-started.md`, `configuration.md`, `api-reference.md`
+- [x] `src_docs/md/styling.md`, `fetching-cors.md`, `thumbnails.md`, `recipes.md`
 - [x] Each `.md` embeds its demo via `<iframe>` + repeats copyable code
 - [x] Build vendors bundle into `docs/assets/` for GitHub Pages
 

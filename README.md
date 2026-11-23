@@ -68,10 +68,12 @@ Every option, with defaults and examples, lives in the [configuration docs](http
 
 ## Build & test
 
+The documentation build uses `uvx` to run ProperDocs with the fly-january 0.1.1 theme. The site uses `chrome: none`.
+
 ```bash
 ./build.sh        # install dependencies, build dist/, then build the docs site
 ./build.sh lib    # install dependencies, then build dist/
-./build.sh docs   # build the docs site from src_docs/ into docs/
+./build.sh docs   # strict build using src_docs/mkdocs.yml, writing to docs/
 npm run build     # build dist/ only
 npm test          # run the test suite (node --test)
 ```
