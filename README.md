@@ -68,7 +68,7 @@ Every option, with defaults and examples, lives in the [configuration docs](http
 
 ## Build & test
 
-The documentation build uses `uvx` to run ProperDocs with the fly-january 0.2.1 theme. The site uses `chrome: none`.
+The documentation build uses `uvx` to run ProperDocs with fly-january 0.3.0 or later. The site uses `chrome: none`.
 
 ```bash
 ./build.sh        # install dependencies, build dist/, then build the docs site
