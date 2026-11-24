@@ -8,7 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Site now uses the fly-january 0.2.1 theme (chrome: none)
+- Site now uses the fly-january 0.2.1 theme (chrome: none). Adoption and upgrade rebuilt the GitHub Pages site (`619530b`, `8a911b5`).
 
 ## [1.0.5] - 2026-06-29
 
@@ -21,6 +21,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Tooltip polish from `b42f054` shipped in npm 1.0.4. The registry tarball includes the new popup defaults and its release source matches that commit.
 - **Speech-balloon arrow connector.** A small arrow points from the card down to
   the link. On by default; turn it off with `popup.arrow: false`.
 - **Call-to-action footer.** An optional `content.cta` string or HTML — e.g.
@@ -58,6 +59,7 @@ no dependencies, restyleable, and published to NPM.
 - **Full theming.** CSS custom properties, automatic dark/light following the
   system setting, font and color inheritance, and a `render(data, link)` hook
   for total control of the card.
+- **All-links selector.** Pass `selector: 'a[href]'` to preview every link with a destination (`82f4825`, verified with Node and linkedom).
 - **Caching and in-flight de-duplication.** Results are cached; two hovers on
   the same link fire one request.
 - **NPM package and tooling.** `build.sh` and `publish.sh`, hand-written
