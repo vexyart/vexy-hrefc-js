@@ -34,7 +34,7 @@ When evolving this into the library, honor these requirements from `IDEA.md`:
 
 - `PLAN.md` — detailed productionization plan.
 - `build.sh` / `publish.sh` — build and NPM publish scripts. Build must emit both ESM and a global/UMD bundle.
-- `src_docs/md/` — documentation and demo sources. The strict build (`./build.sh docs`) uses `src_docs/mkdocs.yml` and the fly-january 0.1.1 theme with `chrome: none`. GitHub Pages serves the generated `docs/` directory.
+- `src_docs/md/` — documentation and demo sources. The strict build (`./build.sh docs`) uses `src_docs/mkdocs.yml` and the fly-january 0.2.1 theme with `chrome: none`. GitHub Pages serves the generated `docs/` directory.
 - `private/WEBFLOW.md` — instructions for replacing the prototype code on the Webflow site (editable via Webflow MCP; page id `6a3a85f11a8adeae9338a9f9`).
 - Target repo: https://github.com/vexyart/vexy-hrefc-js
 

@@ -8,7 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Site now uses the fly-january 0.1.1 theme (chrome: none)
+- Site now uses the fly-january 0.2.1 theme (chrome: none)
 
 ## [1.0.5] - 2026-06-29
 

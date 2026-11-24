@@ -36,7 +36,7 @@ Flat, actionable mirror of `PLAN.md`. Check items as they land.
 - [x] `npm run build` green; sizes recorded (global.min 14.8 KB / 5.5 KB gz)
 
 ## P5 — Docs & demos
-- [x] Configure fly-january 0.1.1 with `chrome: none` in `src_docs/mkdocs.yml`
+- [x] Configure fly-january 0.2.1 with `chrome: none` in `src_docs/mkdocs.yml`
 - [x] Build `src_docs/md/index.md` and the other Markdown pages into `docs/` with `./build.sh docs`
 - [x] Demo harness: `docs/assets/demo.css` + `docs/assets/demo.js` (copy buttons)
 - [x] `docs/demos/01-basic.html` + `docs/demos/index.html`

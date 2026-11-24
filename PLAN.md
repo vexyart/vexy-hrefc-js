@@ -149,7 +149,7 @@ Three levels, increasing power:
 
 ## 5. Documentation & demos (`docs/`)
 
-GitHub Pages serves the generated `docs/` directory. `./build.sh docs` runs ProperDocs in strict mode using `src_docs/mkdocs.yml` and fly-january 0.1.1 with `chrome: none`.
+GitHub Pages serves the generated `docs/` directory. `./build.sh docs` runs ProperDocs in strict mode using `src_docs/mkdocs.yml` and fly-january 0.2.1 with `chrome: none`.
 
 The trick that ties them together: the **demos are the previews**. Standalone HTML files in `docs/demos/` load the built global script and show progressive examples — each with its source visible and copyable, and the live widget running right there. The Markdown pages embed those same demos via `<iframe>` and repeat the code in fenced blocks. One source of truth, two front doors.
 
