@@ -8,6 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- The documentation site uses fly-january 0.4.0 or later (remote theme assets).
 - The documentation build requires fly-january 0.3.0 or later.
 - Site now uses the fly-january 0.2.1 theme (chrome: none). Adoption and upgrade rebuilt the GitHub Pages site (`619530b`, `8a911b5`).
 

@@ -56,7 +56,7 @@ This runs `node --test`. The tests cover configuration merging, metadata extract
 
 ## Build the documentation
 
-ProperDocs builds the site from `src_docs/md/` into `docs/` using fly-january 0.3.0 or later. The site configuration sets `extra.fly.chrome` to `none`.
+ProperDocs builds the site from `src_docs/md/` into `docs/` using fly-january 0.4.0 or later (remote theme assets). The site configuration sets `extra.fly.chrome` to `none`.
 
 1. Build once, in strict mode:
 
